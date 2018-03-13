@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<operator xmlns="http://wirecloud.conwet.fi.upm.es/ns/macdescription/1" vendor="CoNWeT" name="gauge-chart-generator" version="0.1.0">
+
+    <details>
+        <title>Gauge chart generator</title>
+        <homepage>https://github.com/mognom/gauge-chart-generator-operator</homepage>
+        <authors>Alejandro Rodríguez &lt;alex.rodriguez@conwet.com&gt;</authors>
+        <email>alex.rodriguez@conwet.com</email>
+        <image></image>
+        <smartphoneimage></smartphoneimage>
+        <description>Generates gauge charts from data</description>
+        <longdescription>DESCRIPTION.md</longdescription>
+        <changelog>doc/changelog.md</changelog>
+        <doc>doc/userguide.md</doc>
+        <license>MIT</license>
+        <issuetracker>https://github.com/mognom/gauge-chart-generator-operator/issues</issuetracker>
+    </details>
+
+    <preferences>
+        <preference name="title" type="text" label="Chart Title" description="Title used for the chart" default=""/>
+        <preference name="units" type="text" label="Chart Units" description="Units used to display value" default=""/>
+        <preference name="min" type="number" label="Minimum value" description="Maximum value" default=""/>
+        <preference name="max" type="number" label="Maximum value" description="Minimum value" default=""/>
+    </preferences>
+
+    <wiring>
+        <inputendpoint name="value" label="Value" description="The value to be used on the gauge" type="text" friendcode="value" />
+
+        <outputendpoint name="chart-options" label="Chart Data Model" description="Chart options" type="text" friendcode="highchart-options" />
+    </wiring>
+
+    <scripts>
+        <script src="js/main.js"/>
+    </scripts>
+
+</operator>
