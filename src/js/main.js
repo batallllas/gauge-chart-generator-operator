@@ -10,16 +10,20 @@
 
     "use strict";
 
+    var value;
     var init = function init() {
-        MashupPlatform.wiring.registerCallback("value", valueCallback);
+        MashupPlatform.wiring.registerCallback("value", function (newValue) {
+            value = getValue(newValue);
+            createGaugeChart(value);
+        });
     };
 
     MashupPlatform.prefs.registerCallback(function (new_preferences) {
-
+        createGaugeChart(value);
     }.bind(this));
 
     var getValue = function getValue(value) {
-        var result;
+        var result = value;
         if (isNaN(value)) {
             // If its not a number or "string" number -> it must be an object
             if (typeof value === "string") {
@@ -47,10 +51,7 @@
         return result;
     };
 
-    var valueCallback = function valueCallback(data) {
-
-        value = getValue(data);
-
+    var createGaugeChart = function createGaugeChart(data) {
         var options = {
             chart: {
                 type: 'solidgauge'
