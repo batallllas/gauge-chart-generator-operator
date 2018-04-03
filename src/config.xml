@@ -25,6 +25,8 @@
 
     <wiring>
         <inputendpoint name="value" label="Value" description="The value to be used on the gauge" type="text" friendcode="value" />
+        <inputendpoint name="newMax" label="Max" description="Upate the maximum value of the chart" type="text" friendcode="value" />
+        <inputendpoint name="newMin" label="Min" description="Upate the minimiun value of the chart" type="text" friendcode="value" />
 
         <outputendpoint name="chart-options" label="Chart Data Model" description="Chart options" type="text" friendcode="highchart-options" />
     </wiring>

@@ -11,9 +11,19 @@
     "use strict";
 
     var value;
+    var max, min;
     var init = function init() {
         MashupPlatform.wiring.registerCallback("value", function (newValue) {
             value = getValue(newValue);
+            createGaugeChart(value);
+        });
+        MashupPlatform.wiring.registerCallback("newMax", function (newMax) {
+            max = getValue(newMax);
+            createGaugeChart(value);
+        });
+
+        MashupPlatform.wiring.registerCallback("newMin", function (newMin) {
+            min = getValue(newMin);
             createGaugeChart(value);
         });
     };
@@ -86,8 +96,8 @@
                     [0.9, '#DF5353'] // red
                 ],
 
-                min: MashupPlatform.prefs.get('min'),
-                max: MashupPlatform.prefs.get('max'),
+                min: min | MashupPlatform.prefs.get('min'),
+                max: max | MashupPlatform.prefs.get('max'),
 
                 lineWidth: 0,
                 minorTickInterval: null,
