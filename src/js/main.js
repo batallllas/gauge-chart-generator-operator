@@ -62,6 +62,14 @@
     };
 
     var createGaugeChart = function createGaugeChart(data) {
+        var minVal = min | MashupPlatform.prefs.get('min');
+        var maxVal = max | MashupPlatform.prefs.get('max');
+
+        // make sure max and min are not equal
+        if (maxVal === minVal) {
+            maxVal++;
+        }
+
         var options = {
             chart: {
                 type: 'solidgauge'
@@ -96,9 +104,9 @@
                     [0.9, '#DF5353'] // red
                 ],
 
-                min: min | MashupPlatform.prefs.get('min'),
-                max: max | MashupPlatform.prefs.get('max'),
-
+                min: minVal,
+                max: maxVal,
+                tickPositions: [minVal, maxVal], // This makes sure max and min are not "rounded" and that min is always shown
                 lineWidth: 0,
                 minorTickInterval: null,
                 tickAmount: 2,
