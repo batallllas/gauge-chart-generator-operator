@@ -65,6 +65,13 @@
         var minVal = min | MashupPlatform.prefs.get('min');
         var maxVal = max | MashupPlatform.prefs.get('max');
 
+        var decimalFormat = "";
+        // Check if value has decimal part
+        if (Number(value) % 1 !== 0) {
+            decimalFormat = ":.1f";
+        }
+
+
         // make sure max and min are not equal
         if (maxVal === minVal) {
             maxVal++;
@@ -127,11 +134,12 @@
 
             series: [{
                 data: [Number(value)],
-                tooltip: {
-                    valueSuffix: ' km/h'
-                },
                 dataLabels: {
-                    format: "<div style='text-align:center'><span style='font-size:25px;color:black'>{y:.1f}</span><br/>"
+                    format: "<div style='text-align:center'><span style='font-size:25px;color:black'>{y" + decimalFormat + "}</span><br/>" +
+                            "<span style='font-size:12px;color:silver'>" + MashupPlatform.prefs.get("units") + "</span></div>"
+                },
+                tooltip: {
+                    valueSuffix: " " + MashupPlatform.prefs.get("units")
                 }
             }]
         };
