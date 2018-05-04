@@ -19,17 +19,17 @@
         });
         MashupPlatform.wiring.registerCallback("newMax", function (newMax) {
             max = getValue(newMax);
-            createGaugeChart(value);
+            createGaugeChart();
         });
 
         MashupPlatform.wiring.registerCallback("newMin", function (newMin) {
             min = getValue(newMin);
-            createGaugeChart(value);
+            createGaugeChart();
         });
     };
 
     MashupPlatform.prefs.registerCallback(function (new_preferences) {
-        createGaugeChart(value);
+        createGaugeChart();
     }.bind(this));
 
     var getValue = function getValue(value) {
@@ -43,10 +43,13 @@
                     throw new MashupPlatform.wiring.EndpointTypeError("Data has no valid value");
                 }
             }
+
             if ("value" in value) {
                 // Get the value key and use it
                 result = value.value;
-            } else if (Object.keys(value).length == 1) {
+            } else if (Object.keys(value).length === 0) {
+                result = null;
+            } else if (Object.keys(value).length === 1) {
                 result = value[Object.keys(value)[0]];
             }  else {
                 throw new MashupPlatform.wiring.EndpointTypeError("Data has no valid value");
@@ -61,16 +64,17 @@
         return result;
     };
 
-    var createGaugeChart = function createGaugeChart(data) {
+    var createGaugeChart = function createGaugeChart() {
         var minVal = min | MashupPlatform.prefs.get('min');
         var maxVal = max | MashupPlatform.prefs.get('max');
+
+        var data = value !== null ? [Number(value)] : [];
 
         var decimalFormat = "";
         // Check if value has decimal part
         if (Number(value) % 1 !== 0) {
             decimalFormat = ":.1f";
         }
-
 
         // make sure max and min are not equal
         if (maxVal === minVal) {
@@ -133,7 +137,7 @@
             },
 
             series: [{
-                data: [Number(value)],
+                data: data,
                 dataLabels: {
                     format: "<div style='text-align:center'><span style='font-size:25px;color:black'>{y" + decimalFormat + "}</span><br/>" +
                             "<span style='font-size:12px;color:silver'>" + MashupPlatform.prefs.get("units") + "</span></div>"
