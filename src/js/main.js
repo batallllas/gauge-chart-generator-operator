@@ -137,6 +137,7 @@
             },
 
             series: [{
+                animation: MashupPlatform.prefs.get('animation'),
                 data: data,
                 dataLabels: {
                     format: "<div style='text-align:center'><span style='font-size:25px;color:black'>{y" + decimalFormat + "}</span><br/>" +
