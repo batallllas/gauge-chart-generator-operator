@@ -65,6 +65,7 @@
     };
 
     var createGaugeChart = function createGaugeChart() {
+
         var minVal = min | MashupPlatform.prefs.get('min');
         var maxVal = max | MashupPlatform.prefs.get('max');
 
@@ -81,121 +82,129 @@
             maxVal++;
         }
 
-        var HighChartOptions = {
-            chart: {
-                type: 'solidgauge'
-            },
 
-            title: {
-                text: MashupPlatform.prefs.get('title')
-            },
+        if (MashupPlatform.wiring.hasOutputConnections("HighChart-options")) {
 
-            pane: {
-                center: ['50%', '85%'],
-                size: '140%',
-                startAngle: -90,
-                endAngle: 90,
-                background: {
-                    backgroundColor: '#EEE',
-                    innerRadius: '60%',
-                    outerRadius: '100%',
-                    shape: 'arc'
-                }
-            },
-
-            tooltip: {
-                enabled: false
-            },
-
-            // the value axis
-            yAxis: {
-                stops: [
-                    [0.1, '#55BF3B'], // green
-                    [0.5, '#DDDF0D'], // yellow
-                    [0.9, '#DF5353'] // red
-                ],
-
-                min: minVal,
-                max: maxVal,
-                tickPositions: [minVal, maxVal], // This makes sure max and min are not "rounded" and that min is always shown
-                lineWidth: 0,
-                minorTickInterval: null,
-                tickAmount: 2,
-                labels: {
-                    y: 16
-                }
-            },
-
-            plotOptions: {
-                solidgauge: {
-                    dataLabels: {
-                        y: 5,
-                        borderWidth: 0,
-                        useHTML: true
-                    }
-                }
-            },
-
-            series: [{
-                animation: MashupPlatform.prefs.get('animation'),
-                data: data,
-                dataLabels: {
-                    format: "<div style='text-align:center'><span style='font-size:25px;color:black'>{y" + decimalFormat + "}</span><br/>" +
-                        "<span style='font-size:12px;color:silver'>" + MashupPlatform.prefs.get("units") + "</span></div>"
+            var HighChartOptions = {
+                chart: {
+                    type: 'solidgauge'
                 },
+
+                title: {
+                    text: MashupPlatform.prefs.get('title')
+                },
+
+                pane: {
+                    center: ['50%', '85%'],
+                    size: '140%',
+                    startAngle: -90,
+                    endAngle: 90,
+                    background: {
+                        backgroundColor: '#EEE',
+                        innerRadius: '60%',
+                        outerRadius: '100%',
+                        shape: 'arc'
+                    }
+                },
+
                 tooltip: {
-                    valueSuffix: " " + MashupPlatform.prefs.get("units")
-                }
-            }]
-        };
+                    enabled: false
+                },
 
-        // Push the highcharts options
-        MashupPlatform.wiring.pushEvent("HighChart-options", HighChartOptions);
+                // the value axis
+                yAxis: {
+                    stops: [
+                        [0.1, '#55BF3B'], // green
+                        [0.5, '#DDDF0D'], // yellow
+                        [0.9, '#DF5353'] // red
+                    ],
 
-        var EChartOptions = {
-
-            title: {
-                text: MashupPlatform.prefs.get('title') || ' ',
-                top: '-5'
-            },
-
-            tooltip: {
-                enabled: false
-            },
-
-            toolbox: {
-                show: false,
-            },
-
-            series: [
-                {
-                    animation: MashupPlatform.prefs.get('animation'),
                     min: minVal,
-                    max: Math.trunc(maxVal),
-                    splitNumber: 10,
-                    center: ['48%', '55%'],
-                    radius: '95%',         // Size of radious
-                    axisLine: {            // Size of line area
-                        lineStyle: {
-                            width: 20
-                        }
-                    },
-                    splitLine: {           // length of number to line area
-                        length: 20,
-                        lineStyle: {
-                            color: 'auto'
-                        }
-                    },
-                    type: 'gauge',
-                    // detail: {formatter:'{value}%'}, MashupPlatform.prefs.get("units")
-                    data: [{ value: data }]
-                }
-            ]
-        };
+                    max: maxVal,
+                    tickPositions: [minVal, maxVal], // This makes sure max and min are not "rounded" and that min is always shown
+                    lineWidth: 0,
+                    minorTickInterval: null,
+                    tickAmount: 2,
+                    labels: {
+                        y: 16
+                    }
+                },
 
-        // Push the ECharts options
-        MashupPlatform.wiring.pushEvent("EChart-options", EChartOptions);
+                plotOptions: {
+                    solidgauge: {
+                        dataLabels: {
+                            y: 5,
+                            borderWidth: 0,
+                            useHTML: true
+                        }
+                    }
+                },
 
+                series: [{
+                    animation: MashupPlatform.prefs.get('animation'),
+                    data: data,
+                    dataLabels: {
+                        format: "<div style='text-align:center'><span style='font-size:25px;color:black'>{y" + decimalFormat + "}</span><br/>" +
+                            "<span style='font-size:12px;color:silver'>" + MashupPlatform.prefs.get("units") + "</span></div>"
+                    },
+                    tooltip: {
+                        valueSuffix: " " + MashupPlatform.prefs.get("units")
+                    }
+                }]
+            };
+
+            // Push the highcharts options
+            MashupPlatform.wiring.pushEvent("HighChart-options", HighChartOptions);
+        }
+
+
+        if (MashupPlatform.wiring.hasOutputConnections("EChart-options")) {
+
+            var EChartOptions = {
+
+                title: {
+                    text: MashupPlatform.prefs.get('title') || ' ',
+                    top: '-5'
+                },
+
+                tooltip: {
+                    enabled: false
+                },
+
+                toolbox: {
+                    show: false,
+                },
+
+                series: [
+                    {
+                        animation: MashupPlatform.prefs.get('animation'),
+                        min: minVal,
+                        max: Math.trunc(maxVal),
+                        splitNumber: 10,
+                        center: ['48%', '55%'],
+                        radius: '95%',         // Size of radious
+                        axisLine: {            // Size of line area
+                            lineStyle: {
+                                width: 20
+                            }
+                        },
+                        splitLine: {           // length of number to line area
+                            length: 20,
+                            lineStyle: {
+                                color: 'auto'
+                            }
+                        },
+                        type: 'gauge',
+                        // detail: {formatter:'{value}%'}, MashupPlatform.prefs.get("units")
+                        data: [{ value: data }]
+                    }
+                ]
+            };
+
+            // Push the ECharts options
+            MashupPlatform.wiring.pushEvent("EChart-options", EChartOptions);
+
+        }
     };
 
     init();
