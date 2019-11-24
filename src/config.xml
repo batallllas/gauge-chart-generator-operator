@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<operator xmlns="http://wirecloud.conwet.fi.upm.es/ns/macdescription/1" vendor="CoNWeT" name="gauge-chart-generator" version="0.2.0">
+<operator xmlns="http://wirecloud.conwet.fi.upm.es/ns/macdescription/1" vendor="CoNWeT" name="gauge-chart-generator" version="0.2.1">
 
     <details>
         <title>Gauge chart generator</title>
@@ -21,6 +21,7 @@
         <preference name="units" type="text" label="Chart Units" description="Units used to display value" default=""/>
         <preference name="min" type="number" label="Minimum value" description="Maximum value" default=""/>
         <preference name="max" type="number" label="Maximum value" description="Minimum value" default=""/>
+        <preference name="animation" type="boolean" label="animations" description="enable/disable chart animations" default="true"/>
     </preferences>
 
     <wiring>
@@ -28,7 +29,7 @@
         <inputendpoint name="newMax" label="Max" description="Upate the maximum value of the chart" type="text" friendcode="value" />
         <inputendpoint name="newMin" label="Min" description="Upate the minimiun value of the chart" type="text" friendcode="value" />
 
-        <outputendpoint name="chart-options" label="Chart Data Model" description="Chart options" type="text" friendcode="highchart-options" />
+        <outputendpoint name="HighChart-options" label="HighChart" description="HighChart options" type="text" friendcode="highchart-options" />
     </wiring>
 
     <scripts>

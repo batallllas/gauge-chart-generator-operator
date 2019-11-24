@@ -51,7 +51,7 @@
                 result = null;
             } else if (Object.keys(value).length === 1) {
                 result = value[Object.keys(value)[0]];
-            }  else {
+            } else {
                 throw new MashupPlatform.wiring.EndpointTypeError("Data has no valid value");
             }
 
@@ -81,7 +81,7 @@
             maxVal++;
         }
 
-        var options = {
+        var HighChartOptions = {
             chart: {
                 type: 'solidgauge'
             },
@@ -141,7 +141,7 @@
                 data: data,
                 dataLabels: {
                     format: "<div style='text-align:center'><span style='font-size:25px;color:black'>{y" + decimalFormat + "}</span><br/>" +
-                            "<span style='font-size:12px;color:silver'>" + MashupPlatform.prefs.get("units") + "</span></div>"
+                        "<span style='font-size:12px;color:silver'>" + MashupPlatform.prefs.get("units") + "</span></div>"
                 },
                 tooltip: {
                     valueSuffix: " " + MashupPlatform.prefs.get("units")
@@ -150,7 +150,7 @@
         };
 
         // Push the highcharts options
-        MashupPlatform.wiring.pushEvent("chart-options", options);
+        MashupPlatform.wiring.pushEvent("HighChart-options", HighChartOptions);
     };
 
     init();
