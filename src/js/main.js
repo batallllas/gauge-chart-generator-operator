@@ -151,6 +151,51 @@
 
         // Push the highcharts options
         MashupPlatform.wiring.pushEvent("HighChart-options", HighChartOptions);
+
+        var EChartOptions = {
+
+            title: {
+                text: MashupPlatform.prefs.get('title') || ' ',
+                top: '-5'
+            },
+
+            tooltip: {
+                enabled: false
+            },
+
+            toolbox: {
+                show: false,
+            },
+
+            series: [
+                {
+                    animation: MashupPlatform.prefs.get('animation'),
+                    min: minVal,
+                    max: Math.trunc(maxVal),
+                    splitNumber: 10,
+                    center: ['48%', '55%'],
+                    radius: '95%',         // Size of radious
+                    axisLine: {            // Size of line area
+                        lineStyle: {
+                            width: 20
+                        }
+                    },
+                    splitLine: {           // length of number to line area
+                        length: 20,
+                        lineStyle: {
+                            color: 'auto'
+                        }
+                    },
+                    type: 'gauge',
+                    // detail: {formatter:'{value}%'}, MashupPlatform.prefs.get("units")
+                    data: [{ value: data }]
+                }
+            ]
+        };
+
+        // Push the ECharts options
+        MashupPlatform.wiring.pushEvent("EChart-options", EChartOptions);
+
     };
 
     init();
